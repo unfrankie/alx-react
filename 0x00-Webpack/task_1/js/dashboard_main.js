@@ -1,8 +1,10 @@
 import $ from 'jquery';
 import _ from 'lodash';
 
+let count = 0;
+
 function updateCounter() {
-  let count = 0;
+  
   return function() {
     count += 1;
     $('#count').text(`${count} clicks on the button`);
