@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import _ from 'lodash';
-import '../css/main.css';
 
 function updateCounter() {
   let count = 0;
@@ -18,6 +17,6 @@ $(document).ready(function() {
   $('body').append('<p id="count"></p>');
   $('body').append('<p>Copyright - Holberton School</p>');
 
-  const countUpdate = _.debounce(updateCounter(), 300);
+  const countUpdate = _.debounce(updateCounter(), 500);
   $('button').on('click', countUpdate);
 });
