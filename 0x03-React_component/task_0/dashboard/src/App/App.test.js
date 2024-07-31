@@ -15,8 +15,7 @@ describe('App tests', () => {
 	});
 	it('should render Notifications component', () => {
 		const component = shallow(<App />);
-
-		expect(component.contains(<Notifications />)).toBe(true);
+		expect(component.find(Notifications).length).toBe(1);
 	});
 	it('should render Header component', () => {
 		const component = shallow(<App />);
@@ -42,8 +41,7 @@ describe('App tests', () => {
 	});
 	it('renders courselist if logged in', () => {
 		const component = shallow(<App isLoggedIn={true} />);
-
-		expect(component.contains(<CourseList />)).toBe(true);
-		expect(component.contains(<Login />)).toBe(false);
+		expect(component.find(CourseList).length).toBe(1);
+		expect(component.find(Login).length).toBe(0);
 	});
 });

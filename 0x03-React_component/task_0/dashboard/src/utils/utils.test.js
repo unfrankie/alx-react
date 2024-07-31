@@ -1,8 +1,10 @@
 import { getFullYear, getFooterCopy, getLatestNotification } from './utils';
 
-test('returns current year', () => {
-	expect(getFullYear()).toBe(2021);
+test("returns current year", () => {
+    const currentYear = new Date().getFullYear();
+    expect(getFullYear()).toBe(currentYear);
 });
+
 
 test('correct footer copy', () => {
 	expect(getFooterCopy(true)).toBe('Holberton School');
