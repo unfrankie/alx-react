@@ -1,49 +1,33 @@
 import React from 'react';
-import App from './App';
-import Login from '../Login/Login';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import Notifications from '../Notifications/Notifications';
+import Login from '../Login/Login';
 import CourseList from '../CourseList/CourseList';
-import { shallow } from 'enzyme';
+import Notifications from '../Notifications/Notifications';
+import './App.css';
+import PropTypes from 'prop-types';
 
-describe('App tests', () => {
-	it('renders without crashing', () => {
-		const component = shallow(<App />);
+function App({ isLoggedIn }) {
+	return (
+		<React.Fragment>
+			<div className='App'>
+				<div className='heading-section'>
+					<Notifications />
+					<Header />
+				</div>
+				{isLoggedIn ? <CourseList /> : <Login />}
+				<Footer />
+			</div>
+		</React.Fragment>
+	);
+}
 
-		expect(component).toBeDefined();
-	});
-	it('should render Notifications component', () => {
-		const component = shallow(<App />);
+App.defaultProps = {
+	isLoggedIn: false,
+};
 
-		expect(component.contains(<Notifications />)).toBe(true);
-	});
-	it('should render Header component', () => {
-		const component = shallow(<App />);
+App.propTypes = {
+	isLoggedIn: PropTypes.bool,
+};
 
-		expect(component.contains(<Header />)).toBe(true);
-	});
-	it('should render Login Component', () => {
-		const component = shallow(<App />);
-
-		expect(component.contains(<Login />)).toBe(true);
-	});
-	it('should render Footer component', () => {
-		const component = shallow(<App />);
-
-		expect(component.contains(<Footer />)).toBe(true);
-	});
-	it('does not render courselist if logged out', () => {
-		const component = shallow(<App />);
-
-		component.setProps({ isLogedIn: false });
-
-		expect(component.contains(<CourseList />)).toBe(false);
-	});
-	it('renders courselist if logged in', () => {
-		const component = shallow(<App isLoggedIn={true} />);
-
-		expect(component.contains(<CourseList />)).toBe(true);
-		expect(component.contains(<Login />)).toBe(false);
-	});
-});
+export default App;
