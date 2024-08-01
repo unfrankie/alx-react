@@ -2,7 +2,7 @@ import React from 'react';
 import './Notifications.css';
 import PropTypes from 'prop-types';
 
-class NotificationItem extends React.Component {
+class NotificationItem extends React.PureComponent {
 	render() {
 		const { type, value, html, markAsRead, id } = this.props;
 		return (
