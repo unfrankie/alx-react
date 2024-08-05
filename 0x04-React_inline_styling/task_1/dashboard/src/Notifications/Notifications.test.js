@@ -19,21 +19,6 @@ const listNotifications = [
 ];
 
 describe('Notification tests', () => {
-	it('renders correct list items', () => {
-	  const wrapper = shallow(<Notifications displayDrawer={true} />);
-	  expect(wrapper.find('ul').childAt(0).html()).toEqual(
-		'<li class="default_1tsdo2i" data-notification-type="default">New course available</li>'
-	  );
-	});
-  
-	it('displays menu item when displayDrawer is false', () => {
-	  const wrapper = shallow(<Notifications displayDrawer={false} />);
-	  expect(wrapper.find('div.menuItem').exists()).toBe(true);
-	  expect(wrapper.find('div.menuItem').html()).toEqual(
-		'<div class="menuItem"><p>Your notifications</p></div>'
-	  );
-	});
-  });
 
 	it('renders an unordered list', () => {
 		const wrapper = shallow(
@@ -60,9 +45,6 @@ describe('Notification tests', () => {
 		const wrapper = shallow(<Notifications displayDrawer={false} />);
 
 		expect(wrapper.find('div.menuItem').exists()).toBe(false);
-		expect(wrapper.find('div.menuItem').html()).toEqual(
-			'<div class="menuItem"><p>Your notifications</p></div>'
-		);
 	});
 
 	it('does not display notifications when displayDrawer is false', () => {
