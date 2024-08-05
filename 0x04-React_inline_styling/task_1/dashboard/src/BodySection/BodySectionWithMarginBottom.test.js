@@ -12,12 +12,13 @@ afterEach(() => {
 });
 
 describe('BodySectionWithMarginBottom tests', () => {
-	it('should apply margin bottom to child component', () => {
-		const wrapper = shallow(<BodySectionWithMarginBottom title='test title' />);
-
-		expect(wrapper.find(BodySection)).toHaveLength(1);
-		expect(wrapper.find(BodySection).html()).toEqual(
-			'<div class="bodySection"><h2>test title</h2></div>'
-		);
-	});
+  it('should render BodySection with margin bottom', () => {
+    const wrapper = shallow(
+      <BodySectionWithMarginBottom title="test title">
+        <p>Test Content</p> {}
+      </BodySectionWithMarginBottom>
+    );
+    expect(wrapper.find(BodySection).prop('title')).toEqual('test title');
+    expect(wrapper.find(BodySection).contains(<p>Test Content</p>)).toBe(true);
+  });
 });
