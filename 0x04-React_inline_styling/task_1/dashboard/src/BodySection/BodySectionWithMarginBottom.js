@@ -19,7 +19,10 @@ const BodySectionWithMarginBottom = ({ title, children }) => {
 
 BodySectionWithMarginBottom.propTypes = {
 	title: PropTypes.string,
-	children: PropTypes.node.isRequired,
+	children: PropTypes.oneOfType([
+		PropTypes.arrayOf(PropTypes.node),
+		PropTypes.node,
+	]),
 };
 
 export default BodySectionWithMarginBottom;
