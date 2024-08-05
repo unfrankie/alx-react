@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 const headerStyle = {
 	backgroundColor: '#deb5b545',
 };
+
 const normalRowStyle = {
 	backgroundColor: '#f5f5f5ab',
 };
+
 const CourseListRow = ({ isHeader, textFirstCell, textSecondCell }) => {
 	return (
 		<tr style={normalRowStyle}>
