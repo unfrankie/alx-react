@@ -1,31 +1,31 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import WithLogging from './WithLogging';
 
-const TestComponent = () => <p>Test Component</p>;
-
 describe('WithLogging tests', () => {
-	it('should call console.log on mount and dismount', () => {
-		const spy = jest.spyOn(console, 'log').mockImplementation();
-		const NewComponent = WithLogging(TestComponent);
-		const wrapper = shallow(<NewComponent />);
+  beforeAll(() => {
+    global.console.log = jest.fn();
+  });
 
-		expect(spy).toBeCalledTimes(1);
-		wrapper.unmount();
-		expect(spy).toBeCalledTimes(2);
-		spy.mockRestore();
-	});
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
-	it('should log out the right message on mount and dismount', () => {
-		const spy = jest.spyOn(console, 'log').mockImplementation();
-		const NewComponent = WithLogging(TestComponent);
-		const wrapper = shallow(<NewComponent />);
+  it('should call console.log on mount and dismount', () => {
+    const TestComponent = () => <div />;
+    const WithLoggingComponent = WithLogging(TestComponent);
+    const wrapper = mount(<WithLoggingComponent />);
+    expect(console.log).toHaveBeenCalledWith('Component TestComponent is mounted');
+    wrapper.unmount();
+    expect(console.log).toHaveBeenCalledWith('Component TestComponent is going to unmount');
+  });
 
-		expect(spy).toBeCalledTimes(1);
-		expect(spy).toBeCalledWith('Component TestComponent is mounted');
-		wrapper.unmount();
-		expect(spy).toHaveBeenCalledTimes(2);
-		expect(spy).toBeCalledWith('Component Test is going to unmount');
-		spy.mockRestore();
-	});
+  it('should log out the right message on mount and dismount', () => {
+    const TestComponent = () => <div />;
+    const WithLoggingComponent = WithLogging(TestComponent);
+    const wrapper = mount(<WithLoggingComponent />);
+    expect(console.log).toHaveBeenCalledWith('Component TestComponent is mounted');
+    wrapper.unmount();
+    expect(console.log).toHaveBeenCalledWith('Component TestComponent is going to unmount');
+  });
 });
