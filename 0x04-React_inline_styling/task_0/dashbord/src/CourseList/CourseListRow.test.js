@@ -1,40 +1,47 @@
 import React from 'react';
-import CourseListRow from './CourseListRow';
-import { shallow } from 'enzyme';
+import PropTypes from 'prop-types';
 
-describe('Course List Row component test', () => {
-	it('should render without crashing', () => {
-		const wrapper = shallow(<CourseListRow textFirstCell='test' />);
+const headerStyle = {
+	backgroundColor: '#deb5b545',
+};
 
-		expect(wrapper.exists()).toBe(true);
-	});
+const normalRowStyle = {
+	backgroundColor: '#f5f5f5ab',
+};
 
-	it('should render one cell with colspan = 2 when textSecondCell null', () => {
-		const wrapper = shallow(
-			<CourseListRow
-				isHeader={true}
-				textFirstCell='test'
-				textSecondCell={null}
-			/>
-		);
+const CourseListRow = ({ isHeader, textFirstCell, textSecondCell }) => {
+	return (
+		<tr style={normalRowStyle}>
+			{isHeader ? (
+				textSecondCell === null ? (
+					<th style={headerStyle} colSpan={2}>
+						{textFirstCell}
+					</th>
+				) : (
+					<>
+						<th style={headerStyle}>{textFirstCell}</th>
+						<th style={headerStyle}>{textSecondCell}</th>
+					</>
+				)
+			) : (
+				<>
+					<td>{textFirstCell}</td>
+					<td>{textSecondCell}</td>
+				</>
+			)}
+		</tr>
+	);
+};
 
-		expect(wrapper.find('tr').children()).toHaveLength(1);
-		expect(wrapper.find('tr').childAt(0).html()).toEqual(
-			'<th style="background-color:#deb5b545" colSpan="2">test</th>'
-		);
-	});
+CourseListRow.propTypes = {
+	isHeader: PropTypes.bool,
+	textFirstCell: PropTypes.string.isRequired,
+	textSecondCell: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
 
-	it('should render two cells when textSecondCell not null', () => {
-		const wrapper = shallow(
-			<CourseListRow
-				isHeader={false}
-				textFirstCell='test'
-				textSecondCell='test'
-			/>
-		);
+CourseListRow.defaultProps = {
+	isHeader: false,
+	textSecondCell: null,
+};
 
-		expect(wrapper.find('tr').children()).toHaveLength(2);
-		expect(wrapper.find('tr').childAt(0).html()).toEqual('<td>test</td>');
-		expect(wrapper.find('tr').childAt(1).html()).toEqual('<td>test</td>');
-	});
-});
+export default CourseListRow;
