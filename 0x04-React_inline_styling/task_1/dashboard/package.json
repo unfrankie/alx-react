@@ -29,8 +29,6 @@
 		"html-webpack-plugin": "^5.5.0",
 		"image-webpack-loader": "^8.0.1",
 		"jest": "^27.4.5",
-		"jsdom": "^24.1.1",
-		"aphrodite": "^2.4.0",
 		"react-hot-loader": "^4.13.0",
 		"style-loader": "^3.3.1",
 		"webpack": "^5.65.0",
@@ -39,13 +37,11 @@
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.16.7",
-		"aphrodite": "^2.4.0",
 		"prop-types": "^15.8.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2"
 	},
 	"jest": {
-		"testEnvironment": "jsdom",
 		"setupFiles": [
 			"<rootDir>/config/setupTests.js"
 		],
@@ -54,7 +50,7 @@
 			"\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
 		},
 		"transform": {
-			"\\.(js|jsx)$": "babel-jest"
+			"\\.js$": "<rootDir>/node_modules/babel-jest"
 		}
 	}
 }
