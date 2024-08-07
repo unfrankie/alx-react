@@ -15,6 +15,19 @@ const styles = StyleSheet.create({
 		height: '100vh',
 		maxWidth: '100vw',
 	},
+	'heading-section': {
+                borderBottom: '4px solid red',
+                display: 'flex',
+                justifyContent: 'space-between',
+                flexDirection: 'row-reverse',
+        },
+        'App-footer': {
+                borderTop: '4px solid red',
+                fontSize: '1.4rem',
+                padding: '0.5em',
+                textAlign: 'center',
+                fontStyle: 'italic',
+        },
 });
 
 class App extends React.Component {
