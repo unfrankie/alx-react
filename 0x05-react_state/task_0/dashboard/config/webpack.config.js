@@ -1,3 +1,4 @@
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -14,7 +15,6 @@ module.exports = {
 			},
 			{
 				test: /\.(png|svg|jpg|jpeg|gif)$/i,
-				// type: 'asset/resource',
 				use: [
 					'file-loader',
 					{
@@ -34,10 +34,13 @@ module.exports = {
 		],
 	},
 	resolve: {
-		extensions: ['*', '.js', '.jsx'],
+		alias: {
+			'react-dom': 'react-dom/profiling',
+			'schedule/tracing': 'schedule/tracing-profiling',
+		},
 	},
 	devServer: {
-		static: './dist',
+		contentBase: './dist',
 		compress: true,
 		open: true,
 		hot: true,
