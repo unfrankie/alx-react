@@ -39,32 +39,29 @@ describe('rendering components', () => {
 	});
 
 	it('renders the right html', () => {
-  const listNotifications = [
-    { id: 1, type: 'default', value: 'New course available' },
-    { id: 2, type: 'urgent', value: 'New resume available' },
-    { id: 3, type: 'default', html: getLatestNotification() },
-  ];
+		const listNotifications = [
+			{ id: 1, type: 'default', value: 'New course available' },
+			{ id: 2, type: 'urgent', value: 'New resume available' },
+			{ id: 3, type: 'default', html: getLatestNotification() },
+		];
+		const wrapper = shallow(
+			<Notifications
+				displayDrawer={true}
+				listNotifications={listNotifications}
+				/>
+			);
+		const firstItem = wrapper.find('ul').childAt(0);
+		const secondItem = wrapper.find('ul').childAt(1);
+  		const thirdItem = wrapper.find('ul').childAt(2);
+		expect(firstItem.prop('data-notification-type')).toEqual('default');
+  		expect(firstItem.text()).toEqual('New course available');
 
-  const wrapper = shallow(
-    <Notifications
-      displayDrawer={true}
-      listNotifications={listNotifications}
-    />
-  );
+  		expect(secondItem.prop('data-notification-type')).toEqual('urgent');
+  		expect(secondItem.text()).toEqual('New resume available');
 
-  const firstItem = wrapper.find('ul').childAt(0);
-  const secondItem = wrapper.find('ul').childAt(1);
-  const thirdItem = wrapper.find('ul').childAt(2);
-
-  expect(firstItem.prop('data-notification-type')).toEqual('default');
-  expect(firstItem.text()).toEqual('New course available');
-
-  expect(secondItem.prop('data-notification-type')).toEqual('urgent');
-  expect(secondItem.text()).toEqual('New resume available');
-
-  expect(thirdItem.prop('data-urgent')).toEqual(true);
-  expect(thirdItem.html()).toContain(getLatestNotification());
-});
+  		expect(thirdItem.prop('data-urgent')).toEqual(true);
+  		expect(thirdItem.html()).toContain(getLatestNotification());
+	});
 
 	it('renders the text "Here is the list of notifications"', () => {
 		const wrapper = shallow(<Notifications displayDrawer={true} />);
@@ -105,15 +102,15 @@ describe('rendering components', () => {
 	});
 
 	it('checks Notifications renders correctly if passed an empty array or listNotifications not passed', () => {
-  const wrapper = shallow(
-    <Notifications displayDrawer={true} listNotifications={[]} />
-  );
+		const wrapper = shallow(
+			<Notifications displayDrawer={true} listNotifications={[]} />
+		);
 
-  const listItem = wrapper.find('ul').childAt(0);
+		const listItem = wrapper.find('ul').childAt(0);
 
-  expect(listItem.prop('data-notification-type')).toEqual('default');
-  expect(listItem.text()).toEqual('No new notification for now');
-});
+  		expect(listItem.prop('data-notification-type')).toEqual('default');
+  		expect(listItem.text()).toEqual('No new notification for now');
+	});
 
 	it('checks when markAsRead called, console.log called with `Notification ${id} has been marked as read`', () => {
 		const wrapper = shallow(<Notifications />);
@@ -188,12 +185,12 @@ describe('rendering components', () => {
 	});
 
 	it('should call handleHideDrawer when close button is clicked', () => {
-  const mockFn = jest.fn();
-  const wrapper = shallow(
-    <Notifications displayDrawer={true} handleHideDrawer={mockFn} />
-  );
+		const mockFn = jest.fn();
+  		const wrapper = shallow(
+			<Notifications displayDrawer={true} handleHideDrawer={mockFn} />
+			);
 
-  wrapper.find('button').simulate('click');
-  expect(mockFn).toHaveBeenCalled();
-});
+  		wrapper.find('button').simulate('click');
+  		expect(mockFn).toHaveBeenCalled();
+	});
 });
