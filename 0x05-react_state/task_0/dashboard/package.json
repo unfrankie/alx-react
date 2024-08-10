@@ -48,5 +48,10 @@
 		],
 		"moduleNameMapper": {
 			"\\.(css|jpeg|png|jpg|gif|svg)$": "<rootDir>/__mocks__/fileMock.js"
+		},
+		"transform": {
+			"^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
+			"^.+\\.(css|less|scss|sass)$": "jest-transform-stub"
 		}
+	}
 }
