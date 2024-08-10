@@ -1,23 +1,33 @@
-import { shallow } from 'enzyme';
 import React from 'react';
-import Login from './Login';
-import { StyleSheetTestUtils } from 'aphrodite';
+import { StyleSheet, css } from 'aphrodite';
+import holberton_logo from '../assets/holberton_logo.jpeg';
 
-beforeEach(() => {
-	StyleSheetTestUtils.suppressStyleInjection();
-});
-afterEach(() => {
-	StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
-});
+const Header = () => {
+  return (
+    <div className={css(styles.header)}>
+      <img src={holberton_logo} className={css(styles.logo)} alt="logo" />
+      <h1 className={css(styles.title)}>School dashboard</h1>
+    </div>
+  );
+}
 
-describe('Header', () => {
-	it('should render without crashing', () => {
-		const wrapper = shallow(<Login />);
-		expect(wrapper.exists()).toEqual(true);
-	});
-	it('should have 2 input tags and 2 label tags', () => {
-		const wrapper = shallow(<Login />);
-		expect(wrapper.find('label')).toHaveLength(2);
-		expect(wrapper.find('input')).toHaveLength(2);
-	});
-});
+const styles = StyleSheet.create({
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: 'calc(10px + 2vmin)',
+    color: 'white',
+    '@media (max-width: 900px)': {
+      justifyContent: 'center'
+    }
+  },
+  title: {
+    color: 'red'
+  },
+  logo: {
+    height: '100px',
+    width: '100px'
+  }
+})
+
+export default Header;
