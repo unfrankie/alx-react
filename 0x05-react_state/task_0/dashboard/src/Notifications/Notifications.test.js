@@ -6,7 +6,7 @@ describe('<Notifications />', () => {
   it('should call handleDisplayDrawer when clicking on menu item', () => {
     const handleDisplayDrawer = jest.fn();
     const wrapper = shallow(<Notifications handleDisplayDrawer={handleDisplayDrawer} />);
-    wrapper.find('div').first().simulate('click');
+    wrapper.find('.menuItem').simulate('click');
     expect(handleDisplayDrawer).toHaveBeenCalled();
   });
 
