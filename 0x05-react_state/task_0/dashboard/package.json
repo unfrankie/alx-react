@@ -43,11 +43,11 @@
 		"react-dom": "^17.0.2"
 	},
 	"jest": {
-		"setupFilesAfterEnv": ["<rootDir>/src/setupTests.js"],
-		"moduleFileExtensions": ["js", "jsx"],
-		"testEnvironment": "jsdom",
-		"transform": {
-			"^.+\\.jsx?$": "babel-jest"
+		"setupFilesAfterEnv": [
+			"<rootDir>config/setupTests.js"
+		],
+		"moduleNameMapper": {
+			"\\.(css|jpeg|png)$": "<rootDir>/__mocks__/styleMock.js"
 		}
 	}
 }
