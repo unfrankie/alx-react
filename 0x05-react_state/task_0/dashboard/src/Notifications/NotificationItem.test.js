@@ -1,60 +1,46 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { StyleSheet, css } from "aphrodite";
+import NotificationItem from "./NotificationItem";
+import { shallow } from "enzyme";
+import { StyleSheetTestUtils } from "aphrodite";
 
-class NotificationItem extends React.PureComponent {
-  render() {
-    const { type, value, html, markAsRead, id } = this.props;
-    return (
-      <>
-        {type && value ? (
-          <li className={type === "default" ? css(styles.default) : css(styles.urgent)} onClick={() => markAsRead(id)} data-notification-type={type}>
-            {value}
-          </li>
-        ) : null}
-        {html ? <li onClick={() => markAsRead(id)} data-urgent className={css(styles.urgent)} dangerouslySetInnerHTML={{ __html: html }}></li> : null}
-      </>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  default: {
-    color: "blue",
-    "@media (max-width: 375px)": {
-      borderBottom: "1px solid black",
-      listStyle: "none",
-      fontSize: "20px",
-      padding: "10px 8px",
-    },
-  },
-  urgent: {
-    color: "red",
-    "@media (max-width: 375px)": {
-      borderBottom: "1px solid black",
-      listStyle: "none",
-      fontSize: "20px",
-      padding: "10px 8px",
-    },
-  },
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
 });
 
-NotificationItem.propTypes = {
-  type: PropTypes.string.isRequired,
-  value: PropTypes.string,
-  __html: PropTypes.shape({
-    html: PropTypes.string,
-  }),
-  markAsRead: PropTypes.func,
-  id: PropTypes.number,
-};
+describe("rendering components", () => {
+  it("renders NotificationItem component without crashing", () => {
+    const wrapper = shallow(<NotificationItem />);
 
-NotificationItem.defaultProps = {
-  type: "default",
-  markAsRead: () => {
-    console.log("empty func");
-  },
-  id: 0,
-};
+    expect(wrapper.exists()).toBe(true);
+  });
 
-export default NotificationItem;
+  it('renders correct html from type="default" value="test" props', () => {
+    const wrapper = shallow(<NotificationItem />);
+
+    wrapper.setProps({ type: "default", value: "test" });
+    expect(wrapper.html()).toEqual('<li class="default_2c02es" data-notification-type="default">test</li>');
+  });
+
+  it('renders correct html from  html="<u>test</u>" props', () => {
+    const wrapper = shallow(<NotificationItem />);
+
+    wrapper.setProps({ html: "<u>test</u>" });
+    expect(wrapper.html()).toEqual('<li data-urgent="true" class="urgent_cyonix"><u>test</u></li>');
+  });
+});
+
+describe("onclick event behaves as it should", () => {
+  it("should call console.log", () => {
+    const wrapper = shallow(<NotificationItem />);
+    const spy = jest.fn();
+
+    wrapper.setProps({ value: "test item", markAsRead: spy, id: 1 });
+    wrapper.find("li").props().onClick();
+    expect(spy).toBeCalledTimes(1);
+    expect(spy).toBeCalledWith(1);
+    spy.mockRestore();
+  });
+});
