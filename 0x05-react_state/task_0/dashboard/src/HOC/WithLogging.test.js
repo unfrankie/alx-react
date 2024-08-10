@@ -1,31 +1,31 @@
-import React from 'react';
-import { mount } from 'enzyme';
+import React, { Component } from 'react';
+import { shallow } from 'enzyme';
 import WithLogging from './WithLogging';
 
-describe('WithLogging tests', () => {
-  beforeAll(() => {
-    global.console.log = jest.fn();
-  });
+describe('<withLogging /> higher oder component', () => {
+  it('checks console.log called on mount and unmount', () => {
+    const spy = jest.spyOn(console, 'log').mockImplementation();
+    const NewComponent = WithLogging(Component);
+    const wrapper = shallow(<NewComponent />)
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('should call console.log on mount and dismount', () => {
-    const TestComponent = () => <div />;
-    const WithLoggingComponent = WithLogging(TestComponent);
-    const wrapper = mount(<WithLoggingComponent />);
-    expect(console.log).toHaveBeenCalledWith('Component TestComponent is mounted');
+    expect(spy).toBeCalledTimes(1);
     wrapper.unmount();
-    expect(console.log).toHaveBeenCalledWith('Component TestComponent is going to unmount');
-  });
+    expect(spy).toBeCalledTimes(2);
+    spy.mockRestore();
+  })
 
-  it('should log out the right message on mount and dismount', () => {
-    const TestComponent = () => <div />;
-    const WithLoggingComponent = WithLogging(TestComponent);
-    const wrapper = mount(<WithLoggingComponent />);
-    expect(console.log).toHaveBeenCalledWith('Component TestComponent is mounted');
+  it('checks console.log called on mount and unmount', () => {
+    const spy = jest.spyOn(console, 'log').mockImplementation();
+    const NewComponent = WithLogging('Login');
+    const wrapper = shallow(<NewComponent />)
+
+    expect(spy).toBeCalledTimes(1);
+    expect(spy).toBeCalledWith(`Component Login is mounted`);
+
     wrapper.unmount();
-    expect(console.log).toHaveBeenCalledWith('Component TestComponent is going to unmount');
-  });
-});
+    expect(spy).toBeCalledWith(`Component Login is going to unmount`);
+    expect(spy).toBeCalledTimes(2);
+
+    spy.mockRestore();
+  })
+})
