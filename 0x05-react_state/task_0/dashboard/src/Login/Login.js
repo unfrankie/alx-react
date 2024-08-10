@@ -1,37 +1,33 @@
-import React from "react";
-import { StyleSheet, css } from "aphrodite";
+import React from 'react';
+import { StyleSheet, css } from 'aphrodite';
+import holberton_logo from '../assets/holberton_logo.jpeg';
 
-function Login() {
+const Header = () => {
   return (
-    <React.Fragment>
-      <div className={css(styles["App-body"])}>
-        <p>Login to access the full dashboard</p>
-        <form>
-          <label htmlFor="email">Email:</label>
-          <input className={css(styles.input)} type="email" name="email"></input>
-          <label htmlFor="password">Password:</label>
-          <input className={css(styles.input)} type="password" name="password"></input>
-          <button>OK</button>
-        </form>
-      </div>
-    </React.Fragment>
+    <div className={css(styles.header)}>
+      <img src={holberton_logo} className={css(styles.logo)} alt="logo" />
+      <h1 className={css(styles.title)}>School dashboard</h1>
+    </div>
   );
 }
 
 const styles = StyleSheet.create({
-  "App-body": {
-    fontSize: "1rem",
-    padding: "2em",
-    height: "45%",
-    "@media (max-width: 900px)": {
-      display: "flex",
-      flexDirection: "column",
-    },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: 'calc(10px + 2vmin)',
+    color: 'white',
+    '@media (max-width: 900px)': {
+      justifyContent: 'center'
+    }
   },
-
-  input: {
-    margin: "10px",
+  title: {
+    color: 'red'
   },
-});
+  logo: {
+    height: '100px',
+    width: '100px'
+  }
+})
 
-export default Login;
+export default Header;
